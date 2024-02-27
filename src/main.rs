@@ -1,16 +1,13 @@
 use clap::Parser;
-/// Simple tournament manager
-#[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
-struct Args {
+use crate::domain::tournament::Tournament;
 
-    /// Name of the tournament
-    #[arg(short, long)]
-    tournament_name: String,
-}
+mod arg_parser;
+mod domain;
+
 
 fn main() {
-    let args = Args::parse();
+    let args = arg_parser::Args::parse();
+    let tournament = Tournament::new(args.tournament_name, 4);
 
-    println!("Welcome to {}", args.tournament_name)
+    println!("Welcome to {}", tournament.get_name());
 }
